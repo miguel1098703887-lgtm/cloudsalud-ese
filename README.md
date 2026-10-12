@@ -84,12 +84,43 @@ python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
 Abra su navegador web en:
 👉 **`http://localhost:8000/`**
 
-### 4. Ejecución de Pruebas Unitarias
-```powershell
-cd C:\Users\migue\.gemini\antigravity\scratch\cloudsalud\backend
-python -m unittest tests/test_copilot.py
+### 4. Acceso Público por Internet (En Vivo)
+Para compartir la aplicación inmediatamente con cualquier persona en el mundo sin necesidad de configurar servidores:
+* **URL Pública en Vivo:** `https://few-dancers-repeat.loca.lt`
+* **Contraseña / IP de Acceso (si la solicita en la primera apertura):** `38.172.222.22`
+
+*(El túnel conecta de forma segura con el servidor local mediante HTTPS).*
+
+### 5. Despliegue Permanente 24/7 en la Nube (Render / Railway)
+
+#### A. Subir a GitHub
+```bash
+git remote add origin https://github.com/TU_USUARIO/cloudsalud-ese.git
+git branch -M main
+git push -u origin main
 ```
-*(7 pruebas unitarias aprobadas: Sanitizador, RBAC, RAG Habilitación, Text-to-SQL Cartera, Termómetro Camas, Briefing Matutino y Alertas Proactivas).*
+
+#### B. Desplegar en Render.com (Gratuito)
+1. Inicie sesión en [Render.com](https://render.com/).
+2. Haga clic en **New + > Web Service** y conecte su repositorio de GitHub.
+3. Configure los campos:
+   * **Runtime:** `Python 3`
+   * **Build Command:** `pip install -r requirements.txt`
+   * **Start Command:** `uvicorn app.main:app --host 0.0.0.0 --port $PORT --app-dir backend`
+4. Haga clic en **Deploy Web Service**. Render generará automáticamente un enlace HTTPS permanente (ej. `https://cloudsalud-ese.onrender.com`).
+
+#### C. Despliegue con Docker
+```bash
+docker build -t cloudsalud-ese .
+docker run -p 8000:8000 cloudsalud-ese
+```
+
+### 6. Ejecución de Pruebas Unitarias
+```powershell
+cd backend
+python tests/test_copilot.py
+```
+*(8 pruebas unitarias aprobadas: Sanitizador, RBAC, RAG Habilitación, Text-to-SQL Cartera, Termómetro Camas, Briefing Matutino, Alertas Proactivas y Matriz de 32 Items).*
 
 ---
 
@@ -98,4 +129,6 @@ python -m unittest tests/test_copilot.py
 * [x] **Fase 1: El Oráculo Normativo:** Carga de estándares de la Resolución 3100 de 2019, PAMEC y Ley 1438 de 2011.
 * [x] **Fase 2: El Asistente de Alertas Proactivas:** Conexión a mantenimiento biomédico (calibraciones metrológicas) y ReTHUS para disparar avisos antes del vencimiento.
 * [x] **Fase 3: El Analista Financiero y Operativo:** Motor Text-to-SQL para cartera EPS, glosas (Decreto 441 de 2022), urgencias y farmacia.
+* [x] **Fase 3.5: Matriz de 32 Items de Implementación y Diagnóstico Express:** Escaneo algorítmico y autodiagnóstico en vivo.
 * [ ] **Fase 4: Modelo Predictivo y Alertas Epidemiológicas:** Predicción de picos de infección respiratoria (IRA) y cálculo de sobrecosto por días de estancia prolongada.
+
